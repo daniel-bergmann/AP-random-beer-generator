@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+        integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ=="
+        crossorigin="anonymous" />
+    <title>Random/Beer/Generator</title>
+
+
+<!-- CSS Code -->
+
+<style>
+    /* Gfonts */
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:ital@0;1&family=Big+Shoulders+Stencil+Display:wght@300;400;500;600;700&family=Special+Elite&display=swap');
+
+        body {
+            background: rgb(212, 179, 149);
+            font-family: 'Amiri', serif;
+        }
+
+        h1 {
+            font-family: 'Big Shoulders Stencil Display', cursive;
+        }
+
+        h3, h5 {
+            font-family: 'Special Elite', cursive;
+        }
+
+        p {
+            padding: 10px;
+            font-size: 20px;
+            max-width: 400px;
+            border: 1px solid black;
+        }
+
+        img {
+            margin: 10px;
+        }
+        .center {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        img {
+            height: 600px;
+            width: 200px;
+        }
+</style>
+</head>
+
+
+<body>
+
+    <!-- HTML code -->
+
+<main>
+    <div class="row">
+        <div class="eleven column center">
+            <h1>Random/Beer/Generator</h1>
+            <h3 id="name"></h3>
+            <img id="pic"></img>
+            <h5>ProTipsy for ProBrewzkis</h5>
+            <p id="tips"></p>
+            <button id="refresh">Click for New Beer</button>
+        </div>
+    </div>
+</main>
+
+    <!-- Javascript Code -->
+
+<script>
+// API is from https://punkapi.com/documentation/v2
+
+
+            // Declaring variables
+const name = document.getElementById('name');
+const pic = document.getElementById('pic');
+const tips = document.getElementById('tips');
+const refresh = document.getElementById('refresh');
+const url = 'https://api.punkapi.com/v2/beers/random';
+
+// calling the functions
+getBeerInfo();
+
+// Async function
+async function getBeerInfo() {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    try {
+        name.innerHTML = data[0].name;
+        tips.innerHTML = data[0].brewers_tips;
+        pic.src = data[0].image_url;
+    }
+    catch {
+        console.log('error..')
+    }
+}
+
+// Refresh button for new beer type
+refresh.addEventListener("click", function refresh() {
+    window.location.reload();
+});
+</script>
+</body>
+</html>
